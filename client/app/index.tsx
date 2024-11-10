@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, TextInput, Button, Pressable, Text } from 'react-native';
+import { StyleSheet, TextInput, Button, View } from 'react-native';
 
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import * as SecureStore from 'expo-secure-store';
 
@@ -50,10 +50,10 @@ export default function HomeScreen() {
 
   const logIn = async () => {
     if (!login || login.trim().length === 0) {
-      return alert("Podaj login");
+      return showToast(false, "Podaj login");
     }
     if (!password || password.trim().length === 0) {
-      return alert("Podaj hasło");
+      return showToast(false, "Podaj hasło");
     }
 
     try {
@@ -94,19 +94,18 @@ export default function HomeScreen() {
           placeholder="Hasło"
           style={styles.input}
         />
-        <Button
-          title="Zaloguj"
-          onPress={logIn}
-        />
-        <Button
-          title="Zarejestruj"
-          onPress={register}
-        />
-        <Link href="/notes" asChild>
-          <Pressable>
-            <Text>Home</Text>
-          </Pressable>
-        </Link>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Zaloguj"
+            onPress={logIn}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Zarejestruj"
+            onPress={register}
+          />
+        </View>
       </SafeAreaView>
       <Toast />
     </SafeAreaProvider>
@@ -119,5 +118,8 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  buttonContainer: {
+    margin: 10,
   },
 });

@@ -6,7 +6,7 @@ const port = 3000
 const CryptoJS = require('crypto-js');
 
 app.use(express.json());
-const db = new sqlite3.Database('./database/database.db');  // Połączenie z bazą danych SQLite
+const db = new sqlite3.Database('./database/database.db');
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

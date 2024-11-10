@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, TextInput, Button, Alert, View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import CryptoES from 'crypto-es';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Dialog from 'react-native-dialog';
-import Config from "react-native-config";
+import Config from 'react-native-config';
 
 export default function NotesScreen() {
   const encryptionKey = Config.ENCRYPTION_KEY ?? '';
@@ -26,7 +26,7 @@ export default function NotesScreen() {
   const showNote = async () => {
     const result = await SecureStore.getItemAsync('note');
     if (result) {
-      const decrypted = CryptoES.AES.decrypt(result, "KeJ6dQZgKtgT6yNY").toString(CryptoES.enc.Utf8);
+      const decrypted = CryptoES.AES.decrypt(result, encryptionKey).toString(CryptoES.enc.Utf8);
       Alert.alert("Notatka:", decrypted);
     } else {
       Alert.alert('Brak zapisanej notatki');
@@ -83,21 +83,24 @@ export default function NotesScreen() {
           placeholder="Notatka"
           style={styles.input}
         />
-        <Button
-          title="Zapisz notatkę"
-          onPress={() => {
-            setOperation('addNote');
-            setModalVisible(true);
-          }}
-        />
-        <Button
-          title="Wyświetl notatkę"
-          onPress={() => {
-            setOperation('showNote');
-            setModalVisible(true);
-          }}
-        />
-
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Zapisz notatkę"
+            onPress={() => {
+              setOperation('addNote');
+              setModalVisible(true);
+            }}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Wyświetl notatkę"
+            onPress={() => {
+              setOperation('showNote');
+              setModalVisible(true);
+            }}
+          />
+        </View>
         <Dialog.Container visible={modalVisible}>
           <Dialog.Title>Potwierdź operację</Dialog.Title>
           <Dialog.Description>
@@ -123,5 +126,8 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  buttonContainer: {
+    margin: 10,
   },
 });
