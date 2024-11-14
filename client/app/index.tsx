@@ -93,6 +93,7 @@ export default function HomeScreen() {
           onChangeText={onChangePassword}
           placeholder="Hasło"
           style={styles.input}
+          secureTextEntry={true}
         />
         <View style={styles.buttonContainer}>
           <Button

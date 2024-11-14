@@ -111,6 +111,7 @@ export default function NotesScreen() {
             onChangeText={setPassword}
             placeholder="Hasło"
             style={styles.input}
+            secureTextEntry={true}
           />
           <Dialog.Button label="Anuluj" onPress={() => setModalVisible(false)} />
           <Dialog.Button label="Wykonaj" onPress={handleAuth} />
