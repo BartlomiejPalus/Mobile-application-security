@@ -30,7 +30,7 @@ export default function HomeScreen() {
     }
 
     try {
-      const response = await fetch('http://10.0.2.2:3000/register', {
+      const response = await fetch('https://local.test:8000/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -47,7 +47,7 @@ export default function HomeScreen() {
       alert(error);
     }
   }
-
+  
   const logIn = async () => {
     if (!login || login.trim().length === 0) {
       return showToast(false, "Podaj login");
@@ -55,9 +55,9 @@ export default function HomeScreen() {
     if (!password || password.trim().length === 0) {
       return showToast(false, "Podaj hasło");
     }
-
+  
     try {
-      const response = await fetch('http://10.0.2.2:3000/login', {
+      const response = await fetch('https://localhost:8000/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
